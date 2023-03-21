@@ -1,0 +1,56 @@
+{
+    "name": "Attack Sample Input Actions",
+    "maps": [
+        {
+            "name": "Player Attacks",
+            "id": "849b61b1-6d25-41e0-b47f-2d7cfaeccb97",
+            "actions": [
+                {
+                    "name": "ShootAt",
+                    "type": "Value",
+                    "id": "cbebaf89-7c65-4594-8c48-b9e36a0c9898",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Click And Point",
+                    "id": "c2511a6c-01ff-4091-acdb-84199351fbdf",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootAt",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "16a9fc46-615e-4e80-b613-a2b1dcde5624",
+                    "path": "<Pointer>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootAt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "a180f003-6062-424c-81cf-e46f70e9cc78",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootAt",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
