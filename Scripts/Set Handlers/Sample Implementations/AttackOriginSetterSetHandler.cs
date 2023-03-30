@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AttackSpawnerSetHandler : MonoBehaviour, IAttackSetHandler, IAttackParentInfoProvider, IAttackPositionInfoProvider
+public class AttackOriginSetterSetHandler : MonoBehaviour, IAttackSetHandler, IAttackParentInfoProvider, IAttackPositionInfoProvider
 {
     [SerializeField] private AttackSetHandler _attackSetHandler;
     [SerializeField] private Transform _attackOrigin;

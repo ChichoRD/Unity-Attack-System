@@ -1,30 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using Object = UnityEngine.Object;
 
-public class ConstrainedAttackController : MonoBehaviour, IConstrainedAttackController
+public class AttackInstancerController : MonoBehaviour, IAttackController
 {
+    [RequireInterface(typeof(IAttackInstance))]
+    [SerializeField] private Object _attackInstanceSourceObject;
+    private IAttackInstance _attackInstanceSource;
+
     [RequireInterface(typeof(IAttackController))]
     [SerializeField] private Object _attackerControllerObject;
     public IAttackController AttackController => _attackerControllerObject as IAttackController;
     public IAttackInstance AttackInstance { get => AttackController.AttackInstance; set => AttackController.AttackInstance = value; }
-
-    [RequireInterface(typeof(IAttackConstrainer))]
-    [SerializeField] private Object _attackConstrainerObject;
-    public IAttackConstrainer AttackConstrainer => _attackConstrainerObject as IAttackConstrainer;
     public UnityEvent<IAttackInstance> OnAttacked => AttackController.OnAttacked;
     public UnityEvent<IAttackInstance> OnAttackInstanceSet => AttackController.OnAttackInstanceSet;
-    [field: SerializeField] public UnityEvent OnFailedToAttack { get; private set; }
 
     public bool Attack()
     {
-        if (!AttackConstrainer.CanAttack())
-        {
-            OnFailedToAttack?.Invoke();
-            return false;
-        }
-        
+        AttackInstance = Instantiate(_attackInstanceSource.Component).GetComponents<IAttackInstance>().First(a => a.GetType() == _attackInstanceSource.GetType());
         return AttackController.Attack();
     }
 
@@ -35,7 +29,7 @@ public class ConstrainedAttackController : MonoBehaviour, IConstrainedAttackCont
 
     public void Initialise(IEnumerable<IAttackControllerInfoProvider> attackControllerInfoProviders)
     {
+        _attackInstanceSource = _attackerControllerObject as IAttackInstance;
         AttackController.Initialise(attackControllerInfoProviders);
-        AttackConstrainer.Initialise(AttackController);
     }
 }
